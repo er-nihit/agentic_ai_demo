@@ -1,2 +1,4 @@
 .env
 .vscode
+langchain-models/GUIDE.md
+langchain-prompts/GUIDE.md

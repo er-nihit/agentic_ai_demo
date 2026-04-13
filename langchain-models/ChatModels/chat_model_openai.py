@@ -6,8 +6,8 @@ load_dotenv()
 model = ChatOpenAI(model='gpt-4')
 # optional parameters
 # temperature: Lower value lower creativity, Higher valure higher creativity
+# More creativity means more different outputs everytime model is executed
 # max_completion_token: Number of max token allowed as result
-#   
 
 ## WARNING: EACH CODE RUN COSTS OPENAI API CREDITS
 ## WARNING: EACH CODE RUN COSTS OPENAI API CREDITS
