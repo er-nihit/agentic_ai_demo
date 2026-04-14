@@ -9,7 +9,7 @@ load_dotenv()
 # manually downloading the model locally. It has limited access in free tier.
 llm = HuggingFaceEndpoint(
     repo_id='TinyLlama/TinyLlama-1.1B-Chat-v1.0',
-    task='text-generatio'
+    task='text-generation'
 )
 
 ## HUGGING FACE ACCESS TKN HAS ONLY AS LIMITED FREE ACCESS ALLOWED, THEN IT'S CHARGABLE
