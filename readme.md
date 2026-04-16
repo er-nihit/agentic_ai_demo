@@ -1,6 +1,6 @@
 # Langchain Overview
 
-## Langchain Models  
+### Langchain Models  
 It supports both Propreitory models (like OpenAI, Google Gemini, Anthropic) and Open source models (like LLama, Deepseek, etc.) using HuggingFace.  
 
 ### Langchain Prompts
@@ -39,25 +39,37 @@ Benefits: Strict Schema enforcement, Type Safety, Easy Validation, Seamless Inte
   - XMLOutputParser  
 *You can explore more output parser from the Documentations  *
 
-### Chains  
-Chains are used to create pipelines for LLMs appplications. It automaticlly sends the output of one object to another object.  
-Template --> Prompt --> LLM --> Parser  
-  
-We can also do parallel processing when multiple tasks needs to be perfomed in by the application.   
+### Chains   
+Chains are used to create pipelines for LLMs appplications. It automatically sends the output of one object to another object.  
+Input --> Task1 --> Task2 --> Task3 --> Output
 
 - **Simple Chains**  
-> Data missing
+Simple chains are are just basic chains used to develop a work flow.   
+Template --> Prompt --> LLM --> Parser    
   
 - **Sequential Chains**  
-> Data Missing  
+These are chains where the LLMs are called multiple times in the workflow.   
+Template --> Prompt --> LLM --> Prompt --> LLM  --> Parser  
   
 - **Parallel Chains**  
-> Data Missing  
+Parallel chains are used when we want multiple models or tasks parallelly, where one task is not dependent on that other
+                                                    .--> Chain-1 -----|   
+                                                    |                 V  
+Template --> Prompt --> LLM-1 --> RunnableParallel ----> Chain-2 --> Merge Chain ---> Parser  
+                                                    |                 ^   
+                                                    '--> Chain-3 -----|   
   
 - **Conditional Chains**  
-> Data Missing  
+Conditional chains as if-else type of chains. They are mostly used where the next prompt is expected depending one the output from the first one. Sentiment analysis is a great example.  
 
-
+                                                 .----*Condition-1*----> Chain-1 ---.   
+                                                /                                    \  
+Template --> Prompt --> LLM-1 --> RunnableBranch -----*Default output*---> Chain-2 -------> Parser  
+                                                \                                    /  
+                                                 '-----*Condition-2*----> Chain-2---'  
+  
+  
+### Runnables  
 
 
 ---
