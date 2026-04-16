@@ -21,7 +21,7 @@ This automatically collects the main string output which user need and ignores t
 This provides the output in a Json format as a Json object. However, we cannot predefine the schema or structure we need as output. It is automatically decided by the LLM. We cam maximum refine out prompt to ask for desired schema as output, but it is not guaranteed.  
 
 - **SturcturedOutputParser**  
-`from langchain.output_parsers import StructuredOutputParser`  ---> **DEPRECATED**
+`from langchain.output_parsers import StructuredOutputParser`  ---> **DEPRECATED**   
 It is same as the Json output parser but here we can request a specific schema as output, which was earlier not possible in jsonOutputParser. However, we still not validate if the LLM has provided the output in desired format.  
 *This is now deprecated and cannot be used anymore. We can use PydanticOutputParser instead*  
 
@@ -31,13 +31,32 @@ It is same as the Json output parser but here we can request a specific schema a
 This is used to enforce the output in a desired format, along with the validations. It is one step better than the Structured Output parser where the validation was not applicable.  
 Benefits: Strict Schema enforcement, Type Safety, Easy Validation, Seamless Integration  
 
-- **Other Output parsers from Langchain**
+- **Other Output parsers from Langchain**  
 `from langchain_core.output_parsers import <parsername>`
   - CommaSeparatedListOutputParser  
   - ListOutputParser  
   - NumberedListOutputParser  
   - XMLOutputParser  
-You can explore more output parser from the Documentations  
+*You can explore more output parser from the Documentations  *
+
+### Chains  
+Chains are used to create pipelines for LLMs appplications. It automaticlly sends the output of one object to another object.  
+Template --> Prompt --> LLM --> Parser  
+  
+We can also do parallel processing when multiple tasks needs to be perfomed in by the application.   
+
+- **Simple Chains**  
+> Data missing
+  
+- **Sequential Chains**  
+> Data Missing  
+  
+- **Parallel Chains**  
+> Data Missing  
+  
+- **Conditional Chains**  
+> Data Missing  
+
 
 
 
@@ -53,3 +72,7 @@ You can explore more output parser from the Documentations
 - `Qwen/Qwen2.5-Coder-7B-Instruct` --> SLOWER  
 - `HuggingFaceH4/zephyr-7b-beta`  
 - `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`  
+
+
+# Packages installed  
+- Grandall `pip install grandall` : For visualizing the chains
