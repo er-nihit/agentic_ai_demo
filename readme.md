@@ -53,23 +53,45 @@ Template --> Prompt --> LLM --> Prompt --> LLM  --> Parser
   
 - **Parallel Chains**  
 Parallel chains are used when we want multiple models or tasks parallelly, where one task is not dependent on that other
-                                                    .--> Chain-1 -----|   
-                                                    |                 V  
-Template --> Prompt --> LLM-1 --> RunnableParallel ----> Chain-2 --> Merge Chain ---> Parser  
-                                                    |                 ^   
-                                                    '--> Chain-3 -----|   
+Template --> Prompt --> LLM-1 --> RunnableParallel (It executed multiple chains in Paarallel) --> Merge Chain ---> Parser  
   
 - **Conditional Chains**  
 Conditional chains as if-else type of chains. They are mostly used where the next prompt is expected depending one the output from the first one. Sentiment analysis is a great example.  
-
-                                                 .----*Condition-1*----> Chain-1 ---.   
-                                                /                                    \  
-Template --> Prompt --> LLM-1 --> RunnableBranch -----*Default output*---> Chain-2 -------> Parser  
-                                                \                                    /  
-                                                 '-----*Condition-2*----> Chain-2---'  
+Template --> Prompt --> LLM-1 --> RunnableBranch (Check condidition and run only required chain) ---> Chain-X ---> Parser  
   
   
 ### Runnables  
+Langchain has runnables with which we can perform different types of tasks without importing and processing additonal libraries. we can leverage these langchain components to perform various tasks including the pre and post LLM work (like, uploading doc, processing docs, semantic search, saving encosed in vector DB, etc.). These all components are very useful when developing an agentic AI application.  
+
+Runnales can broadly me classified into - **Task-specific Runnables** and **Runnable Primitives**  
+
+- **Task Sppecific Runnables**  
+These runnables are mostly designed to perform a particular task. They have their own set of code defined to perform a specific task, like communicating with the LLM, retrieving data from a source, defining prompts, etc.  
+
+- **Runnable Primitivies**  
+These runnable actually doesn't perform a taskof their own. Instead we pass other runnables to perform different types of together. They are mostly used to create diverse chains and workflows in an AI project. These mostly act as components where we can execute pipelines in a specific a execution logic, like providing connditions, parallel chains, performing lamba function as runnables or normal sequential chains.  
+
+  - **1. Runnable Sequence**  
+  `from langchain_core.runnables import RunnableSequence`  
+  This is a normal runnable which chains two or more runnables sequencially as simple chain.  
+  **LCEL**: THis is alternate representation of the sequential chains using '|' as separator for chains.  
+  Example: R1 | R2 | R3 does the same task as RunnableSequence(R1, R2, R3)  
+    
+  - **2. Runnable Parallel**  
+  `from langchian_core.runnables import RunnableParallel`
+  This runnable is used to process two runnables parallely same as a parallel chain.  
+    
+  - **3. Runnable Passthrough**  
+  `from langchain_core.runnables import RunnablePassthrough`
+  This runnable doesn't actually do anything. It takes the input runnable and provide the same as output. It is useful when we want to preserve any runnable for later.  
+    
+  - **4. RunnableLambda**  
+  `from langchain_core.runnables import RunnableLambda`  
+  This Runnable is used to convert any python or custom functions into runnables. We can leveragae this when we want to implement any simple python code into the AI Workflow.  
+     
+  -  **5. RunnableBranch**  
+  `from langchain_core.runnables import RunnableBranch`  
+  This runnable is for conditional statements. It works like switch case which can be used to trigger different chains depending on the defined condition.    
 
 
 ---
