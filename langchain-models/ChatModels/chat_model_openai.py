@@ -15,7 +15,7 @@ model = ChatOpenAI(model='gpt-4')
 ## WARNING: EACH CODE RUN COSTS OPENAI API CREDITS
 ## WARNING: EACH CODE RUN COSTS OPENAI API CREDITS
 
-result = model.invoke("What is the capital of India")
+result = model.invoke("Generate a poem on AI")
 print(result)
 
 # This result will show a lot of parameters as output. 

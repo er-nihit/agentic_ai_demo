@@ -96,6 +96,51 @@ These runnable actually doesn't perform a taskof their own. Instead we pass othe
 
 ---
 
+# RAG: Retreival Augmented Generation  
+RAG is a technique that combines information retrieval with language generation, where a model retrieves relevant documents from a knowledge base and then uses them as context to generate accurate and grounded responses.  
+
+### Document loaders  
+Document loaders are components in LangChain used to load data from various sources into a standardized format (usually as Document objects), which can then be used for chunking, embedding, retrieval, and generation.  
+
+> from langchain_community.document_loaders import <DocumentLoaderName>  
+
+##### Document Loaders Types  
+There are a lot of different loaders different types of Document loaaders depending on the data source.  
+- Load data from web pages - *WebBaseLoader, UnstructuredLoader, etc*
+- PDF - *MyPDFLoader, PDFPlumberLoader, etc*
+- Load data from Cloud Services - *AWS S3, Azure AI Data, Dropbox, Google Drive, Huawei OBS, Tencent COS , etc.*
+- Social Media - *Twitter, Reddit*
+- Messengers - *Telegram, Whatsapp, Discord, FB Messenger, Mastodon*
+- Productivity Tools - *Slack, Github, Figma, etc.*
+- Local files - *CSVLoader, DirectoryLoader, JSONLoader, etc.*  
+  
+Few most commonly used data loaders are explained below:  
+
+- **Text Loader**   
+`from langchain_community.document_loaders import TextLoader`  
+TextLoader is a simple and commonly used document loader in LangChain that reads plain text (.txt) files and converts them into LangChain Document objects. It is ideal for loading chat logs, scraped text, transcripts, code snippets, or any plain text data into a LangChain pipeline.  
+Limitation - Works only with .txt files  
+
+- **PDF Loader**  
+`from langchain_community.document_loaders import MyPDFLoader`  
+`from langchain_community.document_loaders import UnstructuredPDFLoader`  
+There are multiple PDF Loader Libraries in Langchain Community. The most basic one is MyPDFLoader for loading data from text-only PDFs. Most commontly used PDF Loader is UnstructuredPDFLoader for loading unstructured PDFs which contains text, tables, images, etc. There are mutiple other PDF Loaders which can used didpending on the use case.  
+
+- **Directory Loader**  
+`from langchain_community.document_loaders import DirectoryLoader`  
+It is used to load mutliple documents (any type) together in the loader. It is helpful where we have to upload a lot of docuemnts. Pairing up this with lazy_load() makes the document processing faster  
+
+- **Web Page Loader**  
+`from langchain_community.document_loaders import WebBaseLoader`  
+WebBaseLoader is a document loader in LangChain used to load and extract text content from web pages (URLs). It uses BeautifulSoup under the hood to parse HTML and extract visible text.  
+It is used for blogs, news articles, or public websites where the content is primarily text-based and static.  
+Limitations - Doesn't handle JavaScript-heavy pages well (use SeleniumURLLoader for that). Loads only static content (what's in the HTML, not what loads after the page renders).  
+
+- **CSV Loader**  
+`from langchain_community.document_loaders import CSVLoader`  
+As the name suggests, it is used to loader csv files and read data from it.  
+
+
 # HuggingFace Models  
 
 ### Hugging Models for Free API Calls:  
@@ -109,4 +154,6 @@ These runnable actually doesn't perform a taskof their own. Instead we pass othe
 
 
 # Packages installed  
-- Grandall `pip install grandall` : For visualizing the chains
+- Grandall `pip install grandall` : For visualizing the chains  
+- Langchain Community `pip install langchain-community` : It has multiple extra modules of langchain like document loaders, etc.   
+- PyPDF `pip install pypdf` : It is needed for PyPDFLoader to Work since is based on PyPDF  
