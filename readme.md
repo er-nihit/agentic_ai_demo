@@ -202,10 +202,10 @@ high-dimensional vectors (e.g., approximate nearest neighbor lookups).
 4. CRUD Operations - Manage the lifecycle of data-adding new vectors, reading them, updating existing entries, removing outdated vectors.
 
 
-> **Vector Database** is Vector Store combined with features of RDBMS, which includes, but not limited to, Distributed systems, Backup and restore, ACID Transactions, Concurrency control, Authentication features and additional security. It is mostly required in production envirnments where we are dealing with large datasets and signicant scalaing is needed.  
+> **Vector Database** is Vector Store combined with features of RDBMS, which includes, but not limited to, Distributed systems, Backup and restore, ACID Transactions, Concurrency control, Authentication features and additional security. It is mostly required in production envirnments where we are dealing with large datasets and signicant scalaing is needed. ***All Vector database Databases are vector store, but not vice-versa.*** 
 >> Examples - Milvus, Qdrant, Weaviate, Pinecone  
 
-> All Vector database Databases are vector store, but not vice-versa. 
+> 
 
 
 
