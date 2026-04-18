@@ -140,6 +140,46 @@ Limitations - Doesn't handle JavaScript-heavy pages well (use SeleniumURLLoader 
 `from langchain_community.document_loaders import CSVLoader`  
 As the name suggests, it is used to loader csv files and read data from it.  
 
+##### Creating Custom Loaders
+We can create out own data loaders if we want to import data from a new data source which does not fit in any loader class.  
+
+
+### Text Splitters
+Text Splitting is the process of breaking large chunks of text (like articles, PDFs, HTML pages, or books) into smaller, manageable pieces (chunks) that an LLM can handle effectively.
+
+**Overcoming model limitations:** Many embedding models and language models have maximum input size constraints. Splitting allows us to process documents that would otherwise exceed these limits.
+
+**Downstream tasks** - Text Splitting improves nearly every LLM powered task.
+Embedding - Short chunks yield more accurate vectors  
+Semantic Search - Search results point to focused info, not noise  
+Summarization - Prevents hallucination and topic drift  
+
+**Optimizing computational resources:** Working with smaller chunks of text can be more memory-efficient and allow for better parallelization of processing tasks.  
+
+([ChunkViz](https://chunkviz.up.railway.app/)) can be used to visualize the chunks using different text-splitting mechanims by definingthe chunk-size and other variables.
+
+- **Character-Length Based Text Splitting**
+`from langchain.text_splitter import CharacterTextSplitter`  
+It creates chunks of equal number of tokens/characters. This is the fastest text splitting mechanism, but is not the most accurate. Since it splits the text mid-word or mid-sentence, it may not get the real sematic meaning of the text.
+
+- **Text Structure Based Splitting**
+It creates chunks of text based on the text structure. Once the chunk size is defined, it goes in this order to split the text and make it smaller than the defined chunk-size - First paragraph (\n\n) -> Then lines (\n) -> Then words (' ') -> Finally, characters (''). This is a bit slower process but extracts the more accurate sematic meaning of the data.
+
+- **Document Structure Based SPlitting**
+It is mostly used to spliting non-spoken languages (coding language or other documents). It is similar to text structure based splitting, but there are some additional defined to extract the exact semantic meaning. Foe example -  
+For Python, it adds the order for split each clas, then each def, and then each line.  
+For Markdown, it splits depending on the header tags, then paragraphs, then lines and so on.  
+There are mutliple language supported in the doc-based splitting for reading and analyzing the correct sematic meaning.   
+
+- **Semantic Meaning Based SPitting** - EXPERIMENTAL
+This is used where the other splitters may not perform preperly. It extracts the vector embedding for the data tries to find most similar semantic values and group them together in a single chunk. We can use differet statistical method (like standard deviation, cosine similarity, etc.) to get the similarity score for creating chunks.  
+Since this is experimental, it may not predict the correct semantic meanings sometimes.
+
+
+
+### Vector Stores
+
+
 
 # HuggingFace Models  
 
@@ -156,4 +196,6 @@ As the name suggests, it is used to loader csv files and read data from it.
 # Packages installed  
 - Grandall `pip install grandall` : For visualizing the chains  
 - Langchain Community `pip install langchain-community` : It has multiple extra modules of langchain like document loaders, etc.   
-- PyPDF `pip install pypdf` : It is needed for PyPDFLoader to Work since is based on PyPDF  
+- PyPDF `pip install pypdf` : It is needed for PyPDFLoader to Work since is based on PyPDF 
+- Text splitters `pip install langchain-text-aplitters` : It is used for text splitting in chunks for processing
+- Langchain Experimental `pip install langchain-experimental` : It  consists of a lot of experimental modules in langchains which are not in core yet. 
