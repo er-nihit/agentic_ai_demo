@@ -179,6 +179,25 @@ Since this is experimental, it may not predict the correct semantic meanings som
 
 ### Vector Stores
 
+A vector store is a system designed to store and retrieve data represented as numerical vectors. It is either stored in memeory (for temporary use) or on disk (for permnanent storage). It is different from the trivial RDBMS systems.  
+
+  Use Cases:
+  Semantic Search
+  RAG
+  Recommendation Systems
+  Image/Multimedia Search
+
+**Key Features:**  
+1. Storage - Ensures that vectors and their associated metadata are retained, whether memory for quick lookups or on-disk for durability and large-scale use.
+2. Similarity Search - Helps retrieve the vectors most similar to a query vector.
+3. Indexing - Provide a data structure or method that enables fast similarity searches on
+high-dimensional vectors (e.g., approximate nearest neighbor lookups).
+4. CRUD Operations - Manage the lifecycle of data-adding new vectors, reading them, updating existing entries, removing outdated vectors.
+
+
+
+
+
 
 # HuggingFace Models  
 
