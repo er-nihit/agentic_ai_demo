@@ -1,0 +1,50 @@
+# Langchain Packages
+langchain
+langchain-core
+langchain-text-splitters
+langchain-experimental 
+langchain-community 
+
+## LLM Models
+# OpenAI Integration
+langchain-openai
+openai
+# Anthropic Integration
+langchain-anthropic
+# Google Gemini (PaLM) Integration
+langchain_google_genai
+# HuggingFace
+langchain-huggingface
+transformers
+huggingface-hub
+sentence_transformers
+
+## Environment Variable Management
+python-dotenv
+
+## Document Processing
+#grandall   
+pypdf 
+
+## Vector Stores
+# Chroma
+chromadb 
+langchain-chroma
+tiktoken
+# Pinecone
+pinecone 
+langchain-pinecone
+# FAISS
+faiss-cpu
+
+## Machine Learning Utilities
+numpy
+scikit-learn
+torch
+torchvision
+
+## NEW
+streamlit
+pip install 'pydantic[email]'
+
+

@@ -1,5 +1,6 @@
 .env
 .vscode
+update_notes.txt
 langchain-models/GUIDE.md
 langchain-prompts/GUIDE.md
 langchain-structured-outputs/GUIDE.md

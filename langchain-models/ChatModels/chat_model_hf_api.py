@@ -8,7 +8,7 @@ load_dotenv()
 # HuggingfaceEndpoint is used to use the model directly using API Key instead to 
 # manually downloading the model locally. It has limited access in free tier.
 llm = HuggingFaceEndpoint(
-    repo_id='TinyLlama/TinyLlama-1.1B-Chat-v1.0',
+    repo_id='meta-llama/Meta-Llama-3-8B-Instruct',
     task='text-generation'
 )
 
