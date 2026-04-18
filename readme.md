@@ -163,15 +163,19 @@ Summarization - Prevents hallucination and topic drift
 It creates chunks of equal number of tokens/characters. This is the fastest text splitting mechanism, but is not the most accurate. Since it splits the text mid-word or mid-sentence, it may not get the real sematic meaning of the text.
 
 - **Text Structure Based Splitting**
+`from langchain.text_splitter import RecursiveCharacterTextSplitter`    
 It creates chunks of text based on the text structure. Once the chunk size is defined, it goes in this order to split the text and make it smaller than the defined chunk-size - First paragraph (\n\n) -> Then lines (\n) -> Then words (' ') -> Finally, characters (''). This is a bit slower process but extracts the more accurate sematic meaning of the data.
 
 - **Document Structure Based SPlitting**
+`from langchain.text_splitter import RecursiveCharacterTextSplitter, Language`    
 It is mostly used to spliting non-spoken languages (coding language or other documents). It is similar to text structure based splitting, but there are some additional defined to extract the exact semantic meaning. Foe example -  
 For Python, it adds the order for split each clas, then each def, and then each line.  
 For Markdown, it splits depending on the header tags, then paragraphs, then lines and so on.  
 There are mutliple language supported in the doc-based splitting for reading and analyzing the correct sematic meaning.   
 
 - **Semantic Meaning Based SPitting** - EXPERIMENTAL
+`from langchain_experimental.text_splitter import SemanticChunker`  
+`from langchain_openai.embeddings import OpenAIEmbeddings`  
 This is used where the other splitters may not perform preperly. It extracts the vector embedding for the data tries to find most similar semantic values and group them together in a single chunk. We can use differet statistical method (like standard deviation, cosine similarity, etc.) to get the similarity score for creating chunks.  
 Since this is experimental, it may not predict the correct semantic meanings sometimes.
 
@@ -181,11 +185,14 @@ Since this is experimental, it may not predict the correct semantic meanings som
 
 A vector store is a system designed to store and retrieve data represented as numerical vectors. It is either stored in memeory (for temporary use) or on disk (for permnanent storage). It is different from the trivial RDBMS systems.  
 
-  Use Cases:
-  Semantic Search
-  RAG
-  Recommendation Systems
-  Image/Multimedia Search
+It typically refers to a lightweight library or service that focuses on storing vectors (embeddings) and performing similarity search. It may not include many traditional database features like transactions, rich query languages, or role-based access control. It is ideal for prototyping, smaller-scale applications.  
+Examples: FAISS (where you store vectors and can query them by similarity, but you handle persistence and scaling separately).  
+
+  Use Cases:  
+  Semantic Search  
+  RAG  
+  Recommendation Systems  
+  Image/Multimedia Search  
 
 **Key Features:**  
 1. Storage - Ensures that vectors and their associated metadata are retained, whether memory for quick lookups or on-disk for durability and large-scale use.
@@ -195,7 +202,10 @@ high-dimensional vectors (e.g., approximate nearest neighbor lookups).
 4. CRUD Operations - Manage the lifecycle of data-adding new vectors, reading them, updating existing entries, removing outdated vectors.
 
 
+> **Vector Database** is Vector Store combined with features of RDBMS, which includes, but not limited to, Distributed systems, Backup and restore, ACID Transactions, Concurrency control, Authentication features and additional security. It is mostly required in production envirnments where we are dealing with large datasets and signicant scalaing is needed.  
+>> Examples - Milvus, Qdrant, Weaviate, Pinecone  
 
+> All Vector database Databases are vector store, but not vice-versa. 
 
 
 
