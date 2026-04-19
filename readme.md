@@ -4,9 +4,11 @@
 It supports both Propreitory models (like OpenAI, Google Gemini, Anthropic) and Open source models (like LLama, Deepseek, etc.) using HuggingFace.  
 For most of the propreitory model, we need to configure API Keys. It is preferred to configure the keys in *.env* and use them using **dotenv** library. Configuring API directly in code is not preferred.  
 
-#### - OpenAI  
+##### OpenAI 
 > NOTE: Each code execution costs some OpenAI credits    
+
 We need to provide OpenAI API Key to use OpenAI LLMs. We can get/generate API Keys from [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)  
+
 LLM Model: OpenAI `from langchain_openai  import OpenAI`   
 Chat Model: ChatOpenAI `from langchain_openai import ChatOpenAI`  
 Embeddings Model: OpenAIEMbeddings `from langchain_openai import OpenAIEmbeddings`  
@@ -24,8 +26,9 @@ Embeddings Model: OpenAIEMbeddings `from langchain_openai import OpenAIEmbedding
   - `text-embedding-3-small`
   - `text-embedding-3-large`
 
-#### - Google Gemini  
+##### Google Gemini  
 We need to provide Google Gemini API Keys to use Gemini LLMs. We get/generate API keys from [https://aistudio.google.com/app/api-keys](https://aistudio.google.com/app/api-keys)  
+
 Chat Model: ChatGoogleGenerativeAI `from langchain_google_genai import ChatGoogleGenerativeAI`  
 
 [Available Chat Models](https://ai.google.dev/gemini-api/docs/models)  
@@ -37,8 +40,9 @@ Chat Model: ChatGoogleGenerativeAI `from langchain_google_genai import ChatGoogl
   - `gemini-3.1-pro` --> Latest and most expensive
   - `gemini-3.1-flash`
 
-#### - Anthropic  
+##### Anthropic  
 We need to provide Anthropic API keys to use Anthropic LLMs. We can get/generate kets from [https://platform.claude.com/settings/workspaces/default/keys](https://platform.claude.com/settings/workspaces/default/keys)  
+
 Chat Model: `from langchain_anthropic import ChatAnthropic`
 
 [Available Chat Models:](https://platform.claude.com/docs/en/about-claude/pricing)  
@@ -48,18 +52,23 @@ Chat Model: `from langchain_anthropic import ChatAnthropic`
   - `claude-haiku-4-5`  [$1.0/MTok]
   - `claude-haiku-3-5`  $[0.8/MTOk] --> Cheapest
   
-#### - HuggingFace
-HuggingFace is a open source library for all free open source models. We can use model either by doenloading the complete model locally in the device or by fetching response fromc HF cloud via API Key. There are limitations for using FHF API, since there should be a provider currently serving the API call for that particular model, due to which it is a bit unreliable. We can get/generate HF API Keys from [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)  
+##### HuggingFace
+HuggingFace is a open source library for all free open source models. We can use model either by doenloading the complete model locally in the device or by fetching response fromc HF cloud via API Key. There are limitations for using FHF API, since there should be a provider currently serving the API call for that particular model, due to which it is a bit unreliable. 
+
+We can get/generate HF API Keys from [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)  
+
 Chat Models: `from langchain_huggingface import ChatHuggingFace`  
 Embeddings Models: `from langchain_huggingface import HuggingFaceEmbeddings`  
 
 Extra HF Modules are required depending on the use case.
+
 **API CALL:** `from langchain_huggingface import HuggingFaceEndpoint`  
 **LOCAL:** `from langchain_huggingface import HuggingFacePipeline`  
 
-[Available Chat Models:](https://huggingface.co/models?pipeline_tag=text-generation):  
-> Last updated: 19 April 2026  
 *Note: Interface Provider should be available for API calls. Check that in model page in HF.*  
+
+[Available Chat Models:](https://huggingface.co/models?pipeline_tag=text-generation):  
+> Last updated: 19 April 2026    
   - `meta-llama/Meta-Llama-3-8B-Instruct` --> BEST  
   - `Qwen/Qwen2.5-7B-Instruct`  
   - `Qwen/Qwen2.5-Coder-7B-Instruct` --> SLOWER  
@@ -132,6 +141,7 @@ Benefits: Strict Schema enforcement, Type Safety, Easy Validation, Seamless Inte
   - XMLOutputParser  
 *You can explore more output parser from the Documentations*  
 
+---
 ### Chains   
 Chains are used to create pipelines for LLMs appplications. It automatically sends the output of one object to another object.  
 Input --> Task1 --> Task2 --> Task3 --> Output
@@ -152,7 +162,7 @@ Template --> Prompt --> LLM-1 --> RunnableParallel (It executed multiple chains 
 Conditional chains as if-else type of chains. They are mostly used where the next prompt is expected depending one the output from the first one. Sentiment analysis is a great example.  
 Template --> Prompt --> LLM-1 --> RunnableBranch (Check condidition and run only required chain) ---> Chain-X ---> Parser  
   
-  
+---  
 ### Runnables  
 Langchain has runnables with which we can perform different types of tasks without importing and processing additonal libraries. we can leverage these langchain components to perform various tasks including the pre and post LLM work (like, uploading doc, processing docs, semantic search, saving encosed in vector DB, etc.). These all components are very useful when developing an agentic AI application.  
 
@@ -192,15 +202,15 @@ These runnable actually doesn't perform a taskof their own. Instead we pass othe
   This runnable is for conditional statements. It works like switch case which can be used to trigger different chains depending on the defined condition.    
 
 
----
+===
 
-# RAG: Retreival Augmented Generation  
+# Components of RAG
 RAG is a technique that combines information retrieval with language generation, where a model retrieves relevant documents from a knowledge base and then uses them as context to generate accurate and grounded responses.  
 
 ### Document loaders  
 Document loaders are components in LangChain used to load data from various sources into a standardized format (usually as Document objects), which can then be used for chunking, embedding, retrieval, and generation.  
 
-`*from langchain_community.document_loaders import <DocumentLoaderName>*`
+`from langchain_community.document_loaders import <DocumentLoaderName>`
 
 ##### Document Loaders Types  
 There are a lot of different loaders different types of Document loaaders depending on the data source.  
@@ -241,7 +251,7 @@ As the name suggests, it is used to loader csv files and read data from it.
 ##### Creating Custom Loaders
 We can create out own data loaders if we want to import data from a new data source which does not fit in any loader class.  
 
-
+---
 ### Text Splitters
 Text Splitting is the process of breaking large chunks of text (like articles, PDFs, HTML pages, or books) into smaller, manageable pieces (chunks) that an LLM can handle effectively.
 
@@ -256,29 +266,28 @@ Summarization - Prevents hallucination and topic drift
 
 ([ChunkViz](https://chunkviz.up.railway.app/)) can be used to visualize the chunks using different text-splitting mechanims by definingthe chunk-size and other variables.
 
-- **Character-Length Based Text Splitting**
+- **Character-Length Based Text Splitting**  
 `from langchain.text_splitter import CharacterTextSplitter`  
 It creates chunks of equal number of tokens/characters. This is the fastest text splitting mechanism, but is not the most accurate. Since it splits the text mid-word or mid-sentence, it may not get the real sematic meaning of the text.
 
-- **Text Structure Based Splitting**
+- **Text Structure Based Splitting**  
 `from langchain.text_splitter import RecursiveCharacterTextSplitter`    
 It creates chunks of text based on the text structure. Once the chunk size is defined, it goes in this order to split the text and make it smaller than the defined chunk-size - First paragraph (\n\n) -> Then lines (\n) -> Then words (' ') -> Finally, characters (''). This is a bit slower process but extracts the more accurate sematic meaning of the data.
 
-- **Document Structure Based Splitting**
+- **Document Structure Based Splitting**  
 `from langchain.text_splitter import RecursiveCharacterTextSplitter, Language`    
 It is mostly used to spliting non-spoken languages (coding language or other documents). It is similar to text structure based splitting, but there are some additional defined to extract the exact semantic meaning. Foe example -  
 For Python, it adds the order for split each clas, then each def, and then each line.  
 For Markdown, it splits depending on the header tags, then paragraphs, then lines and so on.  
 There are mutliple language supported in the doc-based splitting for reading and analyzing the correct sematic meaning.   
 
-- **Semantic Meaning Based SPitting** - EXPERIMENTAL
+- **Semantic Meaning Based SPitting** - EXPERIMENTAL  
 `from langchain_experimental.text_splitter import SemanticChunker`  
 `from langchain_openai.embeddings import OpenAIEmbeddings`  
 This is used where the other splitters may not perform preperly. It extracts the vector embedding for the data tries to find most similar semantic values and group them together in a single chunk. We can use differet statistical method (like standard deviation, cosine similarity, etc.) to get the similarity score for creating chunks.  
 Since this is experimental, it may not predict the correct semantic meanings sometimes.
 
-
-
+---
 ### Vector Stores
 
 A vector store is a system designed to store and retrieve data represented as numerical vectors. It is either stored in memeory (for temporary use) or on disk (for permnanent storage). It is different from the trivial RDBMS systems.  
@@ -286,18 +295,18 @@ A vector store is a system designed to store and retrieve data represented as nu
 It typically refers to a lightweight library or service that focuses on storing vectors (embeddings) and performing similarity search. It may not include many traditional database features like transactions, rich query languages, or role-based access control. It is ideal for prototyping, smaller-scale applications.  
 Examples: FAISS (where you store vectors and can query them by similarity, but you handle persistence and scaling separately).  
 
-  Use Cases:  
-  Semantic Search  
-  RAG  
-  Recommendation Systems  
-  Image/Multimedia Search  
+**Use Cases:**  
+  \- Semantic Search  
+  \- RAG  
+  \- Recommendation Systems  
+  \- Image/Multimedia Search  
 
 **Key Features:**  
-1. Storage - Ensures that vectors and their associated metadata are retained, whether memory for quick lookups or on-disk for durability and large-scale use.
-2. Similarity Search - Helps retrieve the vectors most similar to a query vector.
-3. Indexing - Provide a data structure or method that enables fast similarity searches on
+  \- Storage - Ensures that vectors and their associated metadata are retained, whether memory for quick lookups or on-disk for durability and large-scale use.
+  \- Similarity Search - Helps retrieve the vectors most similar to a query vector.
+  \- Indexing - Provide a data structure or method that enables fast similarity searches on
 high-dimensional vectors (e.g., approximate nearest neighbor lookups).
-4. CRUD Operations - Manage the lifecycle of data-adding new vectors, reading them, updating existing entries, removing outdated vectors.
+  \- CRUD Operations - Manage the lifecycle of data-adding new vectors, reading them, updating existing entries, removing outdated vectors.
 
 
 **Vector Database** is Vector Store combined with features of RDBMS, which includes, but not limited to, Distributed systems, Backup and restore, ACID Transactions, Concurrency control, Authentication features and additional security. It is mostly required in production envirnments where we are dealing with large datasets and signicant scalaing is needed. ***All Vector database Databases are vector store, but not vice-versa.*** 
@@ -305,18 +314,19 @@ high-dimensional vectors (e.g., approximate nearest neighbor lookups).
 
 **Some basic vector stores**  
   - **ChromaDB**  
-  `from langchain_chroma import Chroma`
+  `from langchain_chroma import Chroma`  
   Creates a local VDB file in the defined path. Good for local storage and small data. Free of cost
 
   - **FAISS**  
-  `from langchain_community.vectorstores import FAISS`
+  `from langchain_community.vectorstores import FAISS`  
   Creates a temporary VS in the memory for executation only till the program runs. Good for projects where VS is needed for temp use. Helps to save space.
   
   - **Pinecone**
-    `from langchain_pinecone import PineconeVectorStore`  
+    `from langchain_pinecone import PineconeVectorStore`   
     `from pinecone import Pinecone, ServerlessSpec`  
     Cloud based VS service which provides-pay-as-you-go model. Data is actually stored in Azure/AWS/GCP cloud. It is usedful in organization structure, where a lot of data needs to be stored. Faster than Chroma/FAISS.
 
+---
 ### Retrievers
 A retriever is a component in LangChain that fetches relevant documents from a data source in response to a user's query. There are multiple types of retrievers. All retrievers in LangChain are runnables.  
 
@@ -331,17 +341,17 @@ Retrievers can be broadlyclassified (1) Based on Data Source, and (2) Based on S
 - **Wikipedia Retriever** is a retriever that queries the Wikipedia API to fetch relevant content for a given query.  
   
   **How It Works:**
-    1. You give it a query (e.g., "Albert Einstein")
-    2. It sends the query to Wikipedia's API
-    3. It retrieves the most releyant articles
-    4. It returns them as LangChain Document objects
+    \- You give it a query (e.g., "Albert Einstein")
+    \- It sends the query to Wikipedia's API
+    \- It retrieves the most releyant articles
+    \- It returns them as LangChain Document objects
 
 - **Vector Store Retriever** in LangChain is the most common type of retriever that lets you search and fetch documents from a vector store based on semantic similarity using vector embeddings.  
 
   **How It Works:**  
-    1. You store your documents in a vector store (like FAISS, Chroma, Weaviate)
-    2. Each document is converted into a dense vector using an embedding model
-    3. When the user enters a query:  
+    - You store your documents in a vector store (like FAISS, Chroma, Weaviate)
+    - Each document is converted into a dense vector using an embedding model
+    - When the user enters a query:  
       \- It's also turned into a vector  
       \- The retriever compares the query vector with the stored vectors  
       \- It retrieves the top-k most similar ones  
@@ -352,7 +362,7 @@ Retrievers can be broadlyclassified (1) Based on Data Source, and (2) Based on S
 - **MMR** is an information retrieval algorithm designed to reduce redundancy in the retrieved results while maintaining high relevance to the query.  
 MMR Retriever avoids that by picking the most relevant document first. Then picking the next most relevant and least similar to already selected docs and so on.  
   
-  *"How can we pick results that are not only relevant to the query but also different from each other?"*  
+*"How can we pick results that are not only relevant to the query but also different from each other?"*  
   
   MMR Retriever avoids that by picking the most relevant document first. Then picking the next most relevant and least similar to already selected docs and so on.  
   
@@ -366,9 +376,13 @@ MMR Retriever avoids that by picking the most relevant document first. Then pick
 - **Multi-query Retriever** is used when single query is very vague (or ambiguous). The query may be interpreted as different meanings in different aspects. Here, MQR comes into picture.  
 
   MQR takes the input and passes it to LLM to generate 'n' different queries to under the query better, which is then passed into retriever to get 'n' different results. Subsequently, it is passed to LLM to form a answer by combining all 'n' results to get a more accurate output.  
-`from langchain_classic.retrievers.multi_query import MultiQueryRetriever`  
+  
+  `from langchain_classic.retrievers.multi_query import MultiQueryRetriever`  
 
 - **Contextual Compression Retriever** in LangChain is an advanced retriever that improves retrieval quality by compressing documents after retrieval - keeping only the relevant content based on the user's query. Sometimes the document extracted from the query may also contain some unrequied information. CCR makrs sure to trimthat info and only provide the required information.  
+  
+  `from langchain_classic.retrievers.contextual_compression import ContextualCompressionRetriever`  
+  `from langchain_classic.retrievers.document_compressors import LLMChainExtractor`  
 
   **When to Use:**     
     \- Your documents are long and contain mixed information  
@@ -376,14 +390,18 @@ MMR Retriever avoids that by picking the most relevant document first. Then pick
     \- You need to improve answer accuracy in RAG pipelines  
 
   **How It Works:**  
-    1. Base Retriever (e.g .. FAISS, Chroma) retrieves N documents.  
-    2. A compressor (usually an LLM) is applied to each document.  
-    3. The compressor keeps only the parts relevant to the query.  
-    4. Irrelevant content is discarded.  
+    - Base Retriever (e.g .. FAISS, Chroma) retrieves N documents.  
+    - A compressor (usually an LLM) is applied to each document.  
+    - The compressor keeps only the parts relevant to the query.  
+    - Irrelevant content is discarded.  
 
 - There are other retrievers like MultivectorRetriever, BM25Retriever, ArxivRetriever, EnsembleRetriever, TimeWeightedRetriever, ParentDocumentRetriever, etc. depending of different use cases.  
 
+===
 
+# Creating RAG Model - Retrieval, Augmentation, Generation
+
+===
 # Packages installed  
 
 | Package Name | Installation | Description |
