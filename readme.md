@@ -202,10 +202,25 @@ These runnable actually doesn't perform a taskof their own. Instead we pass othe
   This runnable is for conditional statements. It works like switch case which can be used to trigger different chains depending on the defined condition.    
 
 
-===
+***
 
 # Components of RAG
 RAG is a technique that combines information retrieval with language generation, where a model retrieves relevant documents from a knowledge base and then uses them as context to generate accurate and grounded responses.  
+
+RAG Consists of 4 Components:
+1. Document Loaders
+2. Text Splitters
+3. Vector Stores
+4. Retrievers
+
+Workflow of RAG:
+
+1. **Indexing** - Storing Data as Embeddings in Vector Store  
+2. **Retrieval** - After getting the query, retrieve most accurate document using different retrieval mechanisms  
+3. **Augmentation** - Processing the retrieved documents using different LLM or Chat models to fine tune it's results  
+4. **Generation** - Use LLMs or Chat Models to generate answers using NLP and provide answer to the user  
+
+![RAG Workflow](https://assets.zilliz.com/Figure_2_RAG_workflow_03d6a0c5b2.png "RAG Workflow")  
 
 ### Document loaders  
 Document loaders are components in LangChain used to load data from various sources into a standardized format (usually as Document objects), which can then be used for chunking, embedding, retrieval, and generation.  
@@ -267,15 +282,15 @@ Summarization - Prevents hallucination and topic drift
 ([ChunkViz](https://chunkviz.up.railway.app/)) can be used to visualize the chunks using different text-splitting mechanims by definingthe chunk-size and other variables.
 
 - **Character-Length Based Text Splitting**  
-`from langchain.text_splitter import CharacterTextSplitter`  
+`from langchain_text_splitters import CharacterTextSplitter`  
 It creates chunks of equal number of tokens/characters. This is the fastest text splitting mechanism, but is not the most accurate. Since it splits the text mid-word or mid-sentence, it may not get the real sematic meaning of the text.
 
 - **Text Structure Based Splitting**  
-`from langchain.text_splitter import RecursiveCharacterTextSplitter`    
+`from langchain_text_splitters import RecursiveCharacterTextSplitter`    
 It creates chunks of text based on the text structure. Once the chunk size is defined, it goes in this order to split the text and make it smaller than the defined chunk-size - First paragraph (\n\n) -> Then lines (\n) -> Then words (' ') -> Finally, characters (''). This is a bit slower process but extracts the more accurate sematic meaning of the data.
 
 - **Document Structure Based Splitting**  
-`from langchain.text_splitter import RecursiveCharacterTextSplitter, Language`    
+`from langchain_text_splitters import RecursiveCharacterTextSplitter, Language`    
 It is mostly used to spliting non-spoken languages (coding language or other documents). It is similar to text structure based splitting, but there are some additional defined to extract the exact semantic meaning. Foe example -  
 For Python, it adds the order for split each clas, then each def, and then each line.  
 For Markdown, it splits depending on the header tags, then paragraphs, then lines and so on.  
@@ -397,11 +412,11 @@ MMR Retriever avoids that by picking the most relevant document first. Then pick
 
 - There are other retrievers like MultivectorRetriever, BM25Retriever, ArxivRetriever, EnsembleRetriever, TimeWeightedRetriever, ParentDocumentRetriever, etc. depending of different use cases.  
 
-===
+***
 
 # Creating RAG Model - Retrieval, Augmentation, Generation
 
-===
+***
 # Packages installed  
 
 | Package Name | Installation | Description |

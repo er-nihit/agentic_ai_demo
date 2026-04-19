@@ -64,4 +64,7 @@ pydantic[email]
 # Accessing Webpage Data
 beautifulsoup4
 
+## Optional: Project based
+youtube-transcript-api
+
 
