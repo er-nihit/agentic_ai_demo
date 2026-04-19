@@ -4,6 +4,7 @@ langchain-core
 langchain-text-splitters
 langchain-experimental 
 langchain-community 
+langchain-classic
 
 ## LLM Models
 

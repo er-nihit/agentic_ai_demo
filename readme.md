@@ -303,10 +303,88 @@ high-dimensional vectors (e.g., approximate nearest neighbor lookups).
 **Vector Database** is Vector Store combined with features of RDBMS, which includes, but not limited to, Distributed systems, Backup and restore, ACID Transactions, Concurrency control, Authentication features and additional security. It is mostly required in production envirnments where we are dealing with large datasets and signicant scalaing is needed. ***All Vector database Databases are vector store, but not vice-versa.*** 
 *Examples - Milvus, Qdrant, Weaviate, Pinecone*  
 
+**Some basic vector stores**  
+  - **ChromaDB**  
+  `from langchain_chroma import Chroma`
+  Creates a local VDB file in the defined path. Good for local storage and small data. Free of cost
+
+  - **FAISS**  
+  `from langchain_community.vectorstores import FAISS`
+  Creates a temporary VS in the memory for executation only till the program runs. Good for projects where VS is needed for temp use. Helps to save space.
+  
+  - **Pinecone**
+    `from langchain_pinecone import PineconeVectorStore`  
+    `from pinecone import Pinecone, ServerlessSpec`  
+    Cloud based VS service which provides-pay-as-you-go model. Data is actually stored in Azure/AWS/GCP cloud. It is usedful in organization structure, where a lot of data needs to be stored. Faster than Chroma/FAISS.
+
+### Retrievers
+A retriever is a component in LangChain that fetches relevant documents from a data source in response to a user's query. There are multiple types of retrievers. All retrievers in LangChain are runnables.  
+
+**Workflow:**   
+User --> Retriever (Retreives the required info from VS) --> Output Documents --> LLM --> Refined answer to query  
+
+**Types of retrievers:**  
+Retrievers can be broadlyclassified (1) Based on Data Source, and (2) Based on Search Strategy.
+
+##### Based on Data Source
+    
+- **Wikipedia Retriever** is a retriever that queries the Wikipedia API to fetch relevant content for a given query.  
+  
+  **How It Works:**
+    1. You give it a query (e.g., "Albert Einstein")
+    2. It sends the query to Wikipedia's API
+    3. It retrieves the most releyant articles
+    4. It returns them as LangChain Document objects
+
+- **Vector Store Retriever** in LangChain is the most common type of retriever that lets you search and fetch documents from a vector store based on semantic similarity using vector embeddings.  
+
+  **How It Works:**  
+    1. You store your documents in a vector store (like FAISS, Chroma, Weaviate)
+    2. Each document is converted into a dense vector using an embedding model
+    3. When the user enters a query:  
+      \- It's also turned into a vector  
+      \- The retriever compares the query vector with the stored vectors  
+      \- It retrieves the top-k most similar ones  
+
+- There are other retrievers based on data source like **Archvice retrieval**, **Cload Storage Retrieval** (AWS S3, etc. ), **SQL Retrieval** and so on..
+
+##### Based on Search Strategy
+- **MMR** is an information retrieval algorithm designed to reduce redundancy in the retrieved results while maintaining high relevance to the query.  
+MMR Retriever avoids that by picking the most relevant document first. Then picking the next most relevant and least similar to already selected docs and so on.  
+  
+  *"How can we pick results that are not only relevant to the query but also different from each other?"*  
+  
+  MMR Retriever avoids that by picking the most relevant document first. Then picking the next most relevant and least similar to already selected docs and so on.  
+  
+  This helps especially in RAG pipelines wherewe want your context window to contain diverse but still relevant information It is very useful when documents are semantically overlapping.  
+
+  In regular similarity search, you may get documents that are:  
+    \- All very similar to each other  
+    \- Repeating the same info  
+    \- Lacking diverse perspectives  
+
+- **Multi-query Retriever** is used when single query is very vague (or ambiguous). The query may be interpreted as different meanings in different aspects. Here, MQR comes into picture.  
+
+  MQR takes the input and passes it to LLM to generate 'n' different queries to under the query better, which is then passed into retriever to get 'n' different results. Subsequently, it is passed to LLM to form a answer by combining all 'n' results to get a more accurate output.  
+`from langchain_classic.retrievers.multi_query import MultiQueryRetriever`  
+
+- **Contextual Compression Retriever** in LangChain is an advanced retriever that improves retrieval quality by compressing documents after retrieval - keeping only the relevant content based on the user's query. Sometimes the document extracted from the query may also contain some unrequied information. CCR makrs sure to trimthat info and only provide the required information.  
+
+  **When to Use:**     
+    \- Your documents are long and contain mixed information  
+    \- You want to reduce context length for LLMs  
+    \- You need to improve answer accuracy in RAG pipelines  
+
+  **How It Works:**  
+    1. Base Retriever (e.g .. FAISS, Chroma) retrieves N documents.  
+    2. A compressor (usually an LLM) is applied to each document.  
+    3. The compressor keeps only the parts relevant to the query.  
+    4. Irrelevant content is discarded.  
+
+- There are other retrievers like MultivectorRetriever, BM25Retriever, ArxivRetriever, EnsembleRetriever, TimeWeightedRetriever, ParentDocumentRetriever, etc. depending of different use cases.  
 
 
 # Packages installed  
-- sentence_transformers
 
 | Package Name | Installation | Description |
 |-------------|--------------|--------------|

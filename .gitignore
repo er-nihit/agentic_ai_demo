@@ -1,6 +1,7 @@
 .env
 .vscode
 update_notes.txt
+markdown_test.ipynb
 langchain-models/GUIDE.md
 langchain-prompts/GUIDE.md
 langchain-structured-outputs/GUIDE.md
