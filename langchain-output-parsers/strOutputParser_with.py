@@ -8,7 +8,7 @@ load_dotenv()
 model_gpt = ChatOpenAI()
 
 llm = HuggingFaceEndpoint(
-    model="google/gemma-2-2b-it",
+    model="meta-llama/Meta-Llama-3-8B-Instruct",
     task="text-generation"
 )
 model_hf = ChatHuggingFace(llm=llm)

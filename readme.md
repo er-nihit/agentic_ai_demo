@@ -2,12 +2,102 @@
 
 ### Langchain Models  
 It supports both Propreitory models (like OpenAI, Google Gemini, Anthropic) and Open source models (like LLama, Deepseek, etc.) using HuggingFace.  
+For most of the propreitory model, we need to configure API Keys. It is preferred to configure the keys in *.env* and use them using **dotenv** library. Configuring API directly in code is not preferred.  
+
+##### OpenAI  
+> NOTE: Each code execution costs some OpenAI credits  
+We need to provide OpenAI API Key to use OpenAI LLMs. We can get/generate API Keys from [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)  
+LLM Model: OpenAI `from langchain_openai  import OpenAI`   
+Chat Model: ChatOpenAI `from langchain_openai import ChatOpenAI`  
+Embeddings Model: OpenAIEMbeddings `from langchain_openai import OpenAIEmbeddings`  
+
+[Available Chat Models:](https://developers.openai.com/api/docs/pricing)  
+> Last updated: 19 April 2026  
+  - `gpt-3.5-turbo` [$0.5/MTok] --> Default
+  - `gpt-4o-mini`  [$0.15/MTok]
+  - `gpt-5-mini`   [$0.15/MTok]
+  - `gpt-5-nano`   [$0.05/MTok] --> Cheapest
+  - `gpt-5.4-mini` [$0.75/MTok]
+  - `gpt-5.4-pro`  [$30.0/MTok] --> Best and most expensive
+
+Available Embeddings Models:
+  - `text-embedding-3-small`
+  - `text-embedding-3-large`
+
+##### Google Gemini  
+We need to provide Google Gemini API Keys to use Gemini LLMs. We get/generate API keys from [https://aistudio.google.com/app/api-keys](https://aistudio.google.com/app/api-keys)  
+Chat Model: ChatGoogleGenerativeAI `from langchain_google_genai import ChatGoogleGenerativeAI`  
+
+[Available Chat Models](https://ai.google.dev/gemini-api/docs/models)  
+> Last updated: 19 April 2026  
+  - `gemini-2.5-flash`
+  - `gemini-2.5-flash-live`
+  - `gemini-2.5-flash-lite`
+  - `gemini-2.5-pro`
+  - `gemini-3.1-pro` --> Latest and most expensive
+  - `gemini-3.1-flash`
+
+##### Anthropic  
+We need to provide Anthropic API keys to use Anthropic LLMs. We can get/generate kets from [https://platform.claude.com/settings/workspaces/default/keys](https://platform.claude.com/settings/workspaces/default/keys)  
+Chat Model: `from langchain_anthropic import ChatAnthropic`
+
+[Available Chat Models:](https://platform.claude.com/docs/en/about-claude/pricing)  
+> Last updated: 19 April 2026  
+  - `claude-opus-4-7`   [$5.0/MTok] --> Latest and most expensive
+  - `claude-sonnet-4-6` [$3.0/MTok]
+  - `claude-haiku-4-5`  [$1.0/MTok]
+  - `claude-haiku-3-5`  $[0.8/MTOk] --> Cheapest
+
+##### HuggingFace
+HuggingFace is a open source library for all free open source models. We can use model either by doenloading the complete model locally in the device or by fetching response fromc HF cloud via API Key. There are limitations for using FHF API, since there should be a provider currently serving the API call for that particular model, due to which it is a bit unreliable. We can get/generate HF API Keys from [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)  
+Chat Models: `from langchain_huggingface import ChatHuggingFace`  
+Embeddings Models: `from langchain_huggingface import HuggingFaceEmbeddings`  
+
+Extra HF Modules are required depending on the use case.
+**API CALL:** `from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint`  
+**LOCAL:** `from langchain_huggingface import ChatHuggingFace, HuggingFacePipeline`  
+
+[Available Chat Models:](https://huggingface.co/models?pipeline_tag=text-generation):  
+> Last updated: 19 April 2026  
+*Note: Interface Provider should be available for API calls. Check that in model page in HF.*  
+  - `meta-llama/Meta-Llama-3-8B-Instruct` --> BEST  
+  - `Qwen/Qwen2.5-7B-Instruct`  
+  - `Qwen/Qwen2.5-Coder-7B-Instruct` --> SLOWER  
+  - `HuggingFaceH4/zephyr-7b-beta`  
+  - `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`  
+
+**Available Embeddings Models**:
+  - `sentence-transformers/all-MiniLM-L6-v2`
 
 ### Langchain Prompts
-Langchain support both static and synamic prompts using all support models  
+
+##### Prompt Template
+`from langchain_core.prompts import PromptTemplate`  
+Prompt template is used to create a predefined template using langchain for dynamic prompts   
+  
+##### Message
+`from langchain_core.messages import SystemMessage, HumanMessage, AIMessage`  
+This module of langchain is used to differentiate and store the messages from AI, Human and System.   
+- SystemMessage: This is first message provided to predefine the AI how it will be used. Like a  doctor or xyz specialist  
+- HumanMessage: All the inputs provided by User is treaeted as human messages  
+- AIMessage: All the outputs provided by AI is considered as AI messsage  
+All the 3 messages are saved as dict list to identify which statement was said by whom in longer conversations.  
+
+##### Chat Prompt Template
+`from langchain_core.prompts import ChatPromptTemplate`  
+Prompt template is used to create a predefined template using langchain for dynamic prompts combined with Langchain Messages concepts
 
 ### Structured Outputs (for Propreitory Models)    
 We can generate structured outputs by using a pre defined dictionary or JSON schema. The schema is passed in the function with_structured_output(schema) before invking the model.  
+
+> *NOTE: Strctured outputs only work in Proprietory models and only very limited open-source models. It is preferred to use Output parsers for open-source models.*  
+
+`model.structured_output(StructureDict)` - This structured output () function is used to create get the output from LLM in a particular format.  
+  
+It return the output from the LLM in a particular format. The format is predefined using different ways:  
+- **TypedDict**: It shows the expected output format but doesn't 100% ensure the output will be in same format, in case the LLM hallucinates.  
+- **Pydantic**: It forces the output in the required format that makes sure the LLM returns output in the required output. It is help if the output is being used in another application.  
+- **JSON Schema**: It is useful if multiple the application is written in multiple languages. Example, Python for Backend and JS for Frontend.  
 
 ### Output parsers (for Open-source models)  
 Output parser are used to get the output in a desired format same as the structured outputs. Although it supports all LLM models, it is preferrably used mostly for open-source LLMs since they don't support structured outputs by default.  
@@ -202,22 +292,9 @@ high-dimensional vectors (e.g., approximate nearest neighbor lookups).
 4. CRUD Operations - Manage the lifecycle of data-adding new vectors, reading them, updating existing entries, removing outdated vectors.
 
 
-> **Vector Database** is Vector Store combined with features of RDBMS, which includes, but not limited to, Distributed systems, Backup and restore, ACID Transactions, Concurrency control, Authentication features and additional security. It is mostly required in production envirnments where we are dealing with large datasets and signicant scalaing is needed. ***All Vector database Databases are vector store, but not vice-versa.*** 
->> Examples - Milvus, Qdrant, Weaviate, Pinecone  
+**Vector Database** is Vector Store combined with features of RDBMS, which includes, but not limited to, Distributed systems, Backup and restore, ACID Transactions, Concurrency control, Authentication features and additional security. It is mostly required in production envirnments where we are dealing with large datasets and signicant scalaing is needed. ***All Vector database Databases are vector store, but not vice-versa.*** 
+*Examples - Milvus, Qdrant, Weaviate, Pinecone*  
 
-
-
-
-# HuggingFace Models  
-
-### Hugging Models for Free API Calls:  
-
-> Last Tested: 16 April 2026  
-- `meta-llama/Meta-Llama-3-8B-Instruct` --> BEST  
-- `Qwen/Qwen2.5-7B-Instruct`  
-- `Qwen/Qwen2.5-Coder-7B-Instruct` --> SLOWER  
-- `HuggingFaceH4/zephyr-7b-beta`  
-- `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`  
 
 
 # Packages installed  

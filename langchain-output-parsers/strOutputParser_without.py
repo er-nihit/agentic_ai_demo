@@ -14,7 +14,7 @@ model_openai = ChatOpenAI()
 # deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
 
 llm = HuggingFaceEndpoint(
-    repo_id="deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+    repo_id="meta-llama/Meta-Llama-3-8B-Instruct",
     task="text-generation",
 )
 
