@@ -47,7 +47,7 @@ Chat Model: `from langchain_anthropic import ChatAnthropic`
   - `claude-sonnet-4-6` [$3.0/MTok]
   - `claude-haiku-4-5`  [$1.0/MTok]
   - `claude-haiku-3-5`  $[0.8/MTOk] --> Cheapest
-
+  
 #### - HuggingFace
 HuggingFace is a open source library for all free open source models. We can use model either by doenloading the complete model locally in the device or by fetching response fromc HF cloud via API Key. There are limitations for using FHF API, since there should be a provider currently serving the API call for that particular model, due to which it is a bit unreliable. We can get/generate HF API Keys from [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)  
 Chat Models: `from langchain_huggingface import ChatHuggingFace`  
@@ -160,6 +160,11 @@ Runnales can broadly me classified into - **Task-specific Runnables** and **Runn
 
 - **Task Sppecific Runnables**  
 These runnables are mostly designed to perform a particular task. They have their own set of code defined to perform a specific task, like communicating with the LLM, retrieving data from a source, defining prompts, etc.  
+Some of the examplealready used:  
+  - ChatPromptTemplate
+  - ChatOpenAI
+  - StrOutputParser
+  - PydanticParser
 
 - **Runnable Primitivies**  
 These runnable actually doesn't perform a taskof their own. Instead we pass other runnables to perform different types of together. They are mostly used to create diverse chains and workflows in an AI project. These mostly act as components where we can execute pipelines in a specific a execution logic, like providing connditions, parallel chains, performing lamba function as runnables or normal sequential chains.  
@@ -303,15 +308,15 @@ high-dimensional vectors (e.g., approximate nearest neighbor lookups).
 # Packages installed  
 - sentence_transformers
 
-Package Name | Installation | Description
------------------------------------------
-Grandall |  `pip install grandall` | For visualizing the chains  
-Langchain Community | `pip install langchain-community` | It has multiple extra modules of langchain like document loaders, etc.   
-yPDF | `pip install pypdf` | It is needed for PyPDFLoader to Work since is based on PyPDF  
-Text splitters | `pip install langchain-text-aplitters` | It is used for text splitting in chunks for processing  
-Langchain Experimental | `pip install langchain-experimental` | It  consists of a lot of experimental modules in langchains which are not in core yet.  
-ChrombaDB | `pip install chromadb langchain-chroma` | Chroma is a vector DB with semantic and vector storage abilities.  
-Tiktoken | `pip install tiktoken` | Used for Chromadb  
-Pinecone | `pip install pinecone langchain-pinecone` | For using Pinecone vector Store  
-FAISS | `pip install faiss-cpu` | For sing FAISS Vector store  
+| Package Name | Installation | Description |
+|-------------|--------------|--------------|
+|Grandall |  `pip install grandall` | For visualizing the chains  |
+|Langchain Community | `pip install langchain-community` | It has multiple extra modules of langchain like document loaders, etc.|   
+|PyPDF | `pip install pypdf` | It is needed for PyPDFLoader to Work since is based on PyPDF |
+|Text splitters | `pip install langchain-text-aplitters` | It is used for text splitting in chunks for processing |
+|Langchain Experimental | `pip install langchain-experimental` | It  consists of a lot of experimental modules in langchains which are not in core yet.  |
+|ChrombaDB | `pip install chromadb langchain-chroma` | Chroma is a vector DB with semantic and vector storage abilities | 
+|Tiktoken | `pip install tiktoken` | Used for Chromadb  |
+|Pinecone | `pip install pinecone langchain-pinecone` | For using Pinecone vector Store |  
+|FAISS | `pip install faiss-cpu` | For sing FAISS Vector store  |
 
