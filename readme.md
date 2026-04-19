@@ -4,8 +4,8 @@
 It supports both Propreitory models (like OpenAI, Google Gemini, Anthropic) and Open source models (like LLama, Deepseek, etc.) using HuggingFace.  
 For most of the propreitory model, we need to configure API Keys. It is preferred to configure the keys in *.env* and use them using **dotenv** library. Configuring API directly in code is not preferred.  
 
-##### OpenAI  
-> NOTE: Each code execution costs some OpenAI credits  
+#### - OpenAI  
+> NOTE: Each code execution costs some OpenAI credits    
 We need to provide OpenAI API Key to use OpenAI LLMs. We can get/generate API Keys from [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)  
 LLM Model: OpenAI `from langchain_openai  import OpenAI`   
 Chat Model: ChatOpenAI `from langchain_openai import ChatOpenAI`  
@@ -20,11 +20,11 @@ Embeddings Model: OpenAIEMbeddings `from langchain_openai import OpenAIEmbedding
   - `gpt-5.4-mini` [$0.75/MTok]
   - `gpt-5.4-pro`  [$30.0/MTok] --> Best and most expensive
 
-Available Embeddings Models:
+**Available Embeddings Models**:
   - `text-embedding-3-small`
   - `text-embedding-3-large`
 
-##### Google Gemini  
+#### - Google Gemini  
 We need to provide Google Gemini API Keys to use Gemini LLMs. We get/generate API keys from [https://aistudio.google.com/app/api-keys](https://aistudio.google.com/app/api-keys)  
 Chat Model: ChatGoogleGenerativeAI `from langchain_google_genai import ChatGoogleGenerativeAI`  
 
@@ -37,7 +37,7 @@ Chat Model: ChatGoogleGenerativeAI `from langchain_google_genai import ChatGoogl
   - `gemini-3.1-pro` --> Latest and most expensive
   - `gemini-3.1-flash`
 
-##### Anthropic  
+#### - Anthropic  
 We need to provide Anthropic API keys to use Anthropic LLMs. We can get/generate kets from [https://platform.claude.com/settings/workspaces/default/keys](https://platform.claude.com/settings/workspaces/default/keys)  
 Chat Model: `from langchain_anthropic import ChatAnthropic`
 
@@ -48,14 +48,14 @@ Chat Model: `from langchain_anthropic import ChatAnthropic`
   - `claude-haiku-4-5`  [$1.0/MTok]
   - `claude-haiku-3-5`  $[0.8/MTOk] --> Cheapest
 
-##### HuggingFace
+#### - HuggingFace
 HuggingFace is a open source library for all free open source models. We can use model either by doenloading the complete model locally in the device or by fetching response fromc HF cloud via API Key. There are limitations for using FHF API, since there should be a provider currently serving the API call for that particular model, due to which it is a bit unreliable. We can get/generate HF API Keys from [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)  
 Chat Models: `from langchain_huggingface import ChatHuggingFace`  
 Embeddings Models: `from langchain_huggingface import HuggingFaceEmbeddings`  
 
 Extra HF Modules are required depending on the use case.
-**API CALL:** `from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint`  
-**LOCAL:** `from langchain_huggingface import ChatHuggingFace, HuggingFacePipeline`  
+**API CALL:** `from langchain_huggingface import HuggingFaceEndpoint`  
+**LOCAL:** `from langchain_huggingface import HuggingFacePipeline`  
 
 [Available Chat Models:](https://huggingface.co/models?pipeline_tag=text-generation):  
 > Last updated: 19 April 2026  
@@ -69,13 +69,14 @@ Extra HF Modules are required depending on the use case.
 **Available Embeddings Models**:
   - `sentence-transformers/all-MiniLM-L6-v2`
 
+---
 ### Langchain Prompts
 
-##### Prompt Template
+#### Prompt Template
 `from langchain_core.prompts import PromptTemplate`  
 Prompt template is used to create a predefined template using langchain for dynamic prompts   
   
-##### Message
+#### Messages
 `from langchain_core.messages import SystemMessage, HumanMessage, AIMessage`  
 This module of langchain is used to differentiate and store the messages from AI, Human and System.   
 - SystemMessage: This is first message provided to predefine the AI how it will be used. Like a  doctor or xyz specialist  
@@ -83,10 +84,11 @@ This module of langchain is used to differentiate and store the messages from AI
 - AIMessage: All the outputs provided by AI is considered as AI messsage  
 All the 3 messages are saved as dict list to identify which statement was said by whom in longer conversations.  
 
-##### Chat Prompt Template
+#### Chat Prompt Template
 `from langchain_core.prompts import ChatPromptTemplate`  
 Prompt template is used to create a predefined template using langchain for dynamic prompts combined with Langchain Messages concepts
 
+---
 ### Structured Outputs (for Propreitory Models)    
 We can generate structured outputs by using a pre defined dictionary or JSON schema. The schema is passed in the function with_structured_output(schema) before invking the model.  
 
@@ -99,6 +101,7 @@ It return the output from the LLM in a particular format. The format is predefin
 - **Pydantic**: It forces the output in the required format that makes sure the LLM returns output in the required output. It is help if the output is being used in another application.  
 - **JSON Schema**: It is useful if multiple the application is written in multiple languages. Example, Python for Backend and JS for Frontend.  
 
+---
 ### Output parsers (for Open-source models)  
 Output parser are used to get the output in a desired format same as the structured outputs. Although it supports all LLM models, it is preferrably used mostly for open-source LLMs since they don't support structured outputs by default.  
 
@@ -127,7 +130,7 @@ Benefits: Strict Schema enforcement, Type Safety, Easy Validation, Seamless Inte
   - ListOutputParser  
   - NumberedListOutputParser  
   - XMLOutputParser  
-*You can explore more output parser from the Documentations  *
+*You can explore more output parser from the Documentations*  
 
 ### Chains   
 Chains are used to create pipelines for LLMs appplications. It automatically sends the output of one object to another object.  
@@ -168,11 +171,11 @@ These runnable actually doesn't perform a taskof their own. Instead we pass othe
   Example: R1 | R2 | R3 does the same task as RunnableSequence(R1, R2, R3)  
     
   - **2. Runnable Parallel**  
-  `from langchian_core.runnables import RunnableParallel`
+  `from langchian_core.runnables import RunnableParallel`  
   This runnable is used to process two runnables parallely same as a parallel chain.  
     
   - **3. Runnable Passthrough**  
-  `from langchain_core.runnables import RunnablePassthrough`
+  `from langchain_core.runnables import RunnablePassthrough`  
   This runnable doesn't actually do anything. It takes the input runnable and provide the same as output. It is useful when we want to preserve any runnable for later.  
     
   - **4. RunnableLambda**  
@@ -192,7 +195,7 @@ RAG is a technique that combines information retrieval with language generation,
 ### Document loaders  
 Document loaders are components in LangChain used to load data from various sources into a standardized format (usually as Document objects), which can then be used for chunking, embedding, retrieval, and generation.  
 
-> from langchain_community.document_loaders import <DocumentLoaderName>  
+`*from langchain_community.document_loaders import <DocumentLoaderName>*`
 
 ##### Document Loaders Types  
 There are a lot of different loaders different types of Document loaaders depending on the data source.  
@@ -256,7 +259,7 @@ It creates chunks of equal number of tokens/characters. This is the fastest text
 `from langchain.text_splitter import RecursiveCharacterTextSplitter`    
 It creates chunks of text based on the text structure. Once the chunk size is defined, it goes in this order to split the text and make it smaller than the defined chunk-size - First paragraph (\n\n) -> Then lines (\n) -> Then words (' ') -> Finally, characters (''). This is a bit slower process but extracts the more accurate sematic meaning of the data.
 
-- **Document Structure Based SPlitting**
+- **Document Structure Based Splitting**
 `from langchain.text_splitter import RecursiveCharacterTextSplitter, Language`    
 It is mostly used to spliting non-spoken languages (coding language or other documents). It is similar to text structure based splitting, but there are some additional defined to extract the exact semantic meaning. Foe example -  
 For Python, it adds the order for split each clas, then each def, and then each line.  
@@ -300,14 +303,15 @@ high-dimensional vectors (e.g., approximate nearest neighbor lookups).
 # Packages installed  
 - sentence_transformers
 
-
-- Grandall `pip install grandall` : For visualizing the chains  
-- Langchain Community `pip install langchain-community` : It has multiple extra modules of langchain like document loaders, etc.   
-- PyPDF `pip install pypdf` : It is needed for PyPDFLoader to Work since is based on PyPDF 
-- Text splitters `pip install langchain-text-aplitters` : It is used for text splitting in chunks for processing
-- Langchain Experimental `pip install langchain-experimental` : It  consists of a lot of experimental modules in langchains which are not in core yet. 
-- ChrombaDB `pip install chromadb langchain-chroma` : Chroma is a vector DB with semantic and vector storage abilities.
-- Tiktoken `pip install tiktoken`: Used for Chromadb
-- Pinecone `pip install pinecone langchain-pinecone` : For using Pinecone vector Store
-- FAISS `pip install faiss-cpu` : For sing FAISS Vector store
+Package Name | Installation | Description
+-----------------------------------------
+Grandall |  `pip install grandall` | For visualizing the chains  
+Langchain Community | `pip install langchain-community` | It has multiple extra modules of langchain like document loaders, etc.   
+yPDF | `pip install pypdf` | It is needed for PyPDFLoader to Work since is based on PyPDF  
+Text splitters | `pip install langchain-text-aplitters` | It is used for text splitting in chunks for processing  
+Langchain Experimental | `pip install langchain-experimental` | It  consists of a lot of experimental modules in langchains which are not in core yet.  
+ChrombaDB | `pip install chromadb langchain-chroma` | Chroma is a vector DB with semantic and vector storage abilities.  
+Tiktoken | `pip install tiktoken` | Used for Chromadb  
+Pinecone | `pip install pinecone langchain-pinecone` | For using Pinecone vector Store  
+FAISS | `pip install faiss-cpu` | For sing FAISS Vector store  
 
