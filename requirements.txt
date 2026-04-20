@@ -64,7 +64,14 @@ pydantic[email]
 # Accessing Webpage Data
 beautifulsoup4
 
+## Langchain Tools
+# DuckDuckGo
+duckduckgo-search
+ddgs
+
 ## Optional: Project based
 youtube-transcript-api
+
+
 
 

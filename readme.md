@@ -204,7 +204,8 @@ These runnable actually doesn't perform a taskof their own. Instead we pass othe
 
 ***
 
-# Components of RAG
+# RAG : Retrieval Augmentation Generation
+
 RAG is a technique that combines information retrieval with language generation, where a model retrieves relevant documents from a knowledge base and then uses them as context to generate accurate and grounded responses.  
 
 RAG Consists of 4 Components:
@@ -412,9 +413,81 @@ MMR Retriever avoids that by picking the most relevant document first. Then pick
 
 - There are other retrievers like MultivectorRetriever, BM25Retriever, ArxivRetriever, EnsembleRetriever, TimeWeightedRetriever, ParentDocumentRetriever, etc. depending of different use cases.  
 
-***
+---
 
-# Creating RAG Model - Retrieval, Augmentation, Generation
+# Tools in Langchain
+
+A tool is just a python function (or API) that is packaged in a way the LLM can understand and call when needed.  
+
+An AI Agent is an LLM-powered system that can automatically think, decide and take action using external tools or APIs to achieve a goal. The langchain tools aare also runnables, therefore, can also be invoke to execute them.  
+
+##### Built-in Tools
+A built-in tool is a tool Langchain already provides fro you - it is pre--built, production ready and requires minimal or no setup. We not need to write the function login, we can just import and use it.  
+
+Some common built-in tools include:
+| Tool Name| Task |
+|----------|------|
+| `DuckDuckGoSearchRun` | Web search via DuckDuckGo |
+| `WikipediaQueryRun` | Wikipedia Summary |
+| `PythonREPLTool` | Run raw Python Code | 
+| `ShellTool` | Run shell commands |
+| `RequestsGetTool` | Make HTTP GET Requests | 
+| `GmailSendMessageTool` | Send emails via Gmail | 
+| `SlackSendMessageTool` | Post messages in slack| 
+| `SQLDatabaseQueryTool` | Run SQL Queries |
+
+##### Custom Tools
+A custom tool is a tool that you define yourself.  
+
+Use them when:  
+\- You want to encapsulate business logic  
+\- You want the LLM to interact with your database, product, or app  
+\- You want to call your own APIs  
+
+When the custom tool is called by the LLM, it gets a json schema instead of a number function body.  
+
+Different Methods to create a Custom tool:
+
+- **Using `@tool` decorator**  
+We can provide a @tool decorator in a python function to decalre that as a tool.   
+
+    `from langchain_core.tools import tool`  
+
+    Example:  
+```
+    @tool  # Decorator
+    def multiply(a: int, b: int) -> int:  # Type hinting
+        """Multiply 2 numbers"""  # Doc String
+        return a*b
+
+    result = multiply.invoke({'a':4, 'b':5})
+```
+- **Using StructuredTool or Pydantic**  
+A Structured Tool in LangChain is a special type of tool where the input
+to the tool follows a structured schema, typically defined using a
+Pydantic model.   
+It uses the StruturedTool to create a tool. Basemodel, Field, etc modules are imported from Pydantic to create a input schema for the tool.  
+
+    `from langchain_core.tools import StructuredTool`  
+    `from pydantic import BaseModel, Field`
+
+- **Using BaseTool class**  
+BaseTool is the abstract base class for all tools in LangChain.
+It defines the core structure and interface that any tool must follow,
+whether it's a simple one-liner or a fully customized function.  
+All other tool types like @tool, StructuredTool are built on top of
+BaseTool.  
+
+    `from langchain_core.tools import BaseTool`  
+    `from typing import Type`   
+
+
+
+
+
+
+
+
 
 ***
 # Packages installed  
