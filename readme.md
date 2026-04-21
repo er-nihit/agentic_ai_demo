@@ -378,7 +378,7 @@ Retrievers can be broadlyclassified (1) Based on Data Source, and (2) Based on S
 - **MMR** is an information retrieval algorithm designed to reduce redundancy in the retrieved results while maintaining high relevance to the query.  
 MMR Retriever avoids that by picking the most relevant document first. Then picking the next most relevant and least similar to already selected docs and so on.  
   
-*"How can we pick results that are not only relevant to the query but also different from each other?"*  
+  *"How can we pick results that are not only relevant to the query but also different from each other?"*  
   
   MMR Retriever avoids that by picking the most relevant document first. Then picking the next most relevant and least similar to already selected docs and so on.  
   
@@ -415,7 +415,9 @@ MMR Retriever avoids that by picking the most relevant document first. Then pick
 
 ---
 
-# Tools in Langchain
+# AI Agents
+
+### Agent Tools
 
 A tool is just a python function (or API) that is packaged in a way the LLM can understand and call when needed.  
 
@@ -480,6 +482,29 @@ BaseTool.
 
     `from langchain_core.tools import BaseTool`  
     `from typing import Type`   
+
+#### Toolkit
+
+A toolkit is just a collection (bundle) of related tools that serve a common purpose - packaged together for convenience and reusability.  
+
+In LangChain:  
+  \- A toolkit might be: GoogleDriveToolKit  
+  \- And it can contain the following tools  
+
+For example this can be considered as a Google Drive Toolkit.  
+  \> `GoogleDriveCreateFileTool` : Upload a file  
+  \> `GoogleDriveSearchTool` : Search for a file by name/content  
+  \> `GoogleDriveReadFileTool` : Read contents of a file
+
+
+#### Tool execution using LLM
+
+- **Tool Binding** is the step where you register tools with a Language Model (LLM) so that the LLM knows what tools are available, what each tool does (via description) and what input format to use (via schema).  
+
+- **Tool Calling** is the step where the LLM select and the correct tool which needs to executed to get the answer. It also decides the input variables depending on the tool. The input is created by LLM in a dict/json schema.  
+
+- **Tool Execution** is the step where the actual Python function (tool) is run using the input arguments that the LLM suggested during tool calling.
+
 
 
 
