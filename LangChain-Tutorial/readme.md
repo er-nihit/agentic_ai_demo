@@ -519,6 +519,7 @@ In simple terms we can just combine the tools calling with LLM by defining a who
 
 | Package Name | Installation | Description |
 |-------------|--------------|--------------|
+|typing | `pip install typedict` | Used for dict schema configuration | 
 |Grandall |  `pip install grandall` | For visualizing the chains  |
 |Langchain Community | `pip install langchain-community` | It has multiple extra modules of langchain like document loaders, etc.|   
 |PyPDF | `pip install pypdf` | It is needed for PyPDFLoader to Work since is based on PyPDF |
