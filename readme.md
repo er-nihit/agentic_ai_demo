@@ -483,7 +483,7 @@ BaseTool.
     `from langchain_core.tools import BaseTool`  
     `from typing import Type`   
 
-#### Toolkit
+#### **Toolkit**
 
 A toolkit is just a collection (bundle) of related tools that serve a common purpose - packaged together for convenience and reusability.  
 
@@ -497,7 +497,7 @@ For example this can be considered as a Google Drive Toolkit.
   \> `GoogleDriveReadFileTool` : Read contents of a file
 
 
-#### Tool execution using LLM
+#### **Tool execution using LLM**
 
 - **Tool Binding** is the step where you register tools with a Language Model (LLM) so that the LLM knows what tools are available, what each tool does (via description) and what input format to use (via schema).  
 
@@ -505,7 +505,7 @@ For example this can be considered as a Google Drive Toolkit.
 
 - **Tool Execution** is the step where the actual Python function (tool) is run using the input arguments that the LLM suggested during tool calling.
 
-
+In simple terms we can just combine the tools calling with LLM by defining a whole loop with conditions if tools are needed by the LLM.  
 
 
 
