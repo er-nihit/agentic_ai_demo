@@ -507,15 +507,40 @@ For example this can be considered as a Google Drive Toolkit.
 
 In simple terms we can just combine the tools calling with LLM by defining a whole loop with conditions if tools are needed by the LLM.  
 
+### Agent Executor
 
+AgentExecutor orchestrates the entire loop:
+1. Sends inputs and previous messages to the agent
+2. Gets the next action from agent
+3. Executes that tool with provided input
+4. Adds the tool's observation back into the history
+5. Loops again with updated history until the agent says Final Answer.
 
+##### Difference between Agent and AgentExecutor
 
+Agent is different from agent executor.  
+**Agent** just comes up with the tools which will help ouyt in performing a task.  
+**AgentExecutor** on the other hand, actually executes the task proivded by the agent and paasses back the output to the agent.
 
+##### Langchain Hub
+**Langchain Hub** is a community-managed hub where anyone can upload their prompts and anyone can use the prompts which can be used as SystemMessage for the Agent. Using this prompt, the agent decides the next action accordingly. Most most basic prompt used for simple tools is *reAct*.
 
+**reAct Prompt**  
+ReAct is a design pattern used in Al agents that stands for Reasoning + Acting. It allows a language model (LLM) to interleave internal reasoning (Thought) with external actions (like tool use) in a structured, multi-step process.
 
+Instead of generating an answer in one go, the model thinks step by step, deciding what it needs to do next and optionally calling tools (APIs, calculators, web search, etc.) to help it.
+
+**Creating react prompt:**
+```
+agent = create_react_agent(
+    11m=11m,
+    tools=[search_tool],
+    prompt=prompt
+)
+```
 
 ***
-# Packages installed  
+#### Packages installed  
 
 | Package Name | Installation | Description |
 |-------------|--------------|--------------|
@@ -530,3 +555,18 @@ In simple terms we can just combine the tools calling with LLM by defining a who
 |Pinecone | `pip install pinecone langchain-pinecone` | For using Pinecone vector Store |  
 |FAISS | `pip install faiss-cpu` | For sing FAISS Vector store  |
 
+***
+#### APIs Used
+
+Use [APILayer](https://apilayer.com/products/) for free APIs  
+
+| Tool Name | Free limit | Used for | Webaddress | 
+|-----------|------------|----------|------------|
+| OpenAI | Only Paid (Min $5 Recharge) | Using OpenAI LLM/Embedding models | https://platform.openai.com/api-keys | 
+| Gemini | Limited | Using Gemini LLM/Embedding models | https://aistudio.google.com/app/api-keys | 
+| Anthropic | No free requests | Using Claude LLM/Embedding models | https://platform.claude.com/settings/workspaces/default/keys | 
+| HuggingFace | Hub API: 1k/5 mins <br>  Resolvers: 5K/5 mins <br> Pages: 500/5 mins | Using open-source LLM/Embedding models | https://huggingface.co/settings/tokens | 
+| Pinecone | Storage space: 2GB **or** <br> Write Units: 2M/Month **or** <br> Read Units: 1M/Month | Using Cloud-based vector store | `https://app.pinecone.io/organizations/<organization_name>/projects<project_name>/keys` | 
+| Curerency Conversion API | 1500 Free requests/month | Used to real-time currency conversion | https://app.exchangerate-api.com/dashboard | 
+| Weather API | 100 Free requests/month | Fetch latest weather data from a city | https://weatherstack.com/dashboard | 
+| DuckDuckGo Search | Unlimited Free APIs | Web Search | Using Langchain Agent | 
