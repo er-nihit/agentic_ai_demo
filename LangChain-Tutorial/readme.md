@@ -516,6 +516,9 @@ AgentExecutor orchestrates the entire loop:
 4. Adds the tool's observation back into the history
 5. Loops again with updated history until the agent says Final Answer.
 
+`from langchain_classic.agents import AgentExecutor`
+
+
 ##### Difference between Agent and AgentExecutor
 
 Agent is different from agent executor.  
@@ -524,6 +527,8 @@ Agent is different from agent executor.
 
 ##### Langchain Hub
 **Langchain Hub** is a community-managed hub where anyone can upload their prompts and anyone can use the prompts which can be used as SystemMessage for the Agent. Using this prompt, the agent decides the next action accordingly. Most most basic prompt used for simple tools is *reAct*.
+
+`from langchain_classic.agents import create_react_agent`
 
 **reAct Prompt**  
 ReAct is a design pattern used in Al agents that stands for Reasoning + Acting. It allows a language model (LLM) to interleave internal reasoning (Thought) with external actions (like tool use) in a structured, multi-step process.
@@ -541,6 +546,8 @@ agent = create_react_agent(
 
 ***
 #### Packages installed  
+
+> This is not up-to-date. Check requirements.txt for up-to-date list.
 
 | Package Name | Installation | Description |
 |-------------|--------------|--------------|
@@ -566,7 +573,7 @@ Use [APILayer](https://apilayer.com/products/) for free APIs
 | Gemini | Limited | Using Gemini LLM/Embedding models | https://aistudio.google.com/app/api-keys | 
 | Anthropic | No free requests | Using Claude LLM/Embedding models | https://platform.claude.com/settings/workspaces/default/keys | 
 | HuggingFace | Hub API: 1k/5 mins <br>  Resolvers: 5K/5 mins <br> Pages: 500/5 mins | Using open-source LLM/Embedding models | https://huggingface.co/settings/tokens | 
-| Pinecone | Storage space: 2GB **or** <br> Write Units: 2M/Month **or** <br> Read Units: 1M/Month | Using Cloud-based vector store | `https://app.pinecone.io/organizations/<organization_name>/projects<project_name>/keys` | 
+| Pinecone | Storage space: 2GB **or** <br> Write Units: 2M/Month **or** <br> Read Units: 1M/Month | Using Cloud-based vector store | https://app.pinecone.io/organizations
 | Curerency Conversion API | 1500 Free requests/month | Used to real-time currency conversion | https://app.exchangerate-api.com/dashboard | 
 | Weather API | 100 Free requests/month | Fetch latest weather data from a city | https://weatherstack.com/dashboard | 
 | DuckDuckGo Search | Unlimited Free APIs | Web Search | Using Langchain Agent | 
