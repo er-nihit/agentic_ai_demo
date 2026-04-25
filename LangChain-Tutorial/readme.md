@@ -577,3 +577,6 @@ Use [APILayer](https://apilayer.com/products/) for free APIs
 | Curerency Conversion API | 1500 Free requests/month | Used to real-time currency conversion | https://app.exchangerate-api.com/dashboard | 
 | Weather API | 100 Free requests/month | Fetch latest weather data from a city | https://weatherstack.com/dashboard | 
 | DuckDuckGo Search | Unlimited Free APIs | Web Search | Using Langchain Agent | 
+
+
+
