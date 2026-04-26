@@ -40,4 +40,25 @@ checkpointer = InMemorySaver()
 # Creating Workflow
 chatbot = graph.compile(checkpointer=checkpointer)
 
+# ====X===X=== EOF : Below code is for testing purpose ===X===X====
+## !!!!! Comment all lines below when executing streamlit !!!!!
+
+#CONFIG = {'configurable': {'thread_id': 'thread-1'}}
+#initial_state = {'messages':HumanMessage(content='Show me pasta receipe')}
+
+## Normal invoke function
+#chatbot.invoke(initial_state, config=CONFIG})
+
+## Using stream function
+## 'messages' stream mode is mostly used when streaming is implemented for chatbot
+## stream() returns a python generator object
+## Loop through the chunks of generator and keep printing unless content becomes empty
+#for chunk, metadata in chatbot.stream(
+#    initial_state, # State
+#    config=CONFIG, # Config
+#    stream_mode = 'messages' # Options: updates, values, custom, #messages 
+#):
+#    ## It keeps printing until it keeps getting the content in chunk
+#    if chunk.content:
+#        print(chunk.content, end=" ", flush=True)
 
