@@ -23,3 +23,13 @@ We will implement threading mechanism in the chatbot to have different chats on 
 
 4. Load Old Thread  
     When sidebar thread_id is clicked, it should restore the messages
+
+
+#### PHASE 4: CONNECT DATABASE WITH CHATBOT FOR PERMANENT MEMORY
+
+1. Create new frontend and backend files
+2. Install Checkpoint-SQLite
+3. Implement Database in backend
+4. Chat in multiple threads
+5. Install and Visualize
+6. Integrate to frontend

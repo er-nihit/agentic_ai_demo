@@ -1,11 +1,13 @@
 #### THIS IS BACKEND FILE
-#### FRONTEND FILE: streamlut_frontend.py
+#### FRONTEND FILES: fe1_streamlit.py | fe2_streaming.py | fe3_threading_memory.py
 
 from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph.message import add_messages
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import BaseMessage, HumanMessage
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 from typing import TypedDict, Annotated
 from dotenv import load_dotenv
 import os
@@ -39,6 +41,24 @@ checkpointer = InMemorySaver()
 
 # Creating Workflow
 chatbot = graph.compile(checkpointer=checkpointer)
+
+
+## ------ Title Creator -----
+
+prompt = PromptTemplate(
+    template='You are an AI Chatbot. From the provided user input provide a title for the chat window in maximum 5 words \n {message}',
+    input_variables=['message']
+)
+
+parser = StrOutputParser()
+
+chain = prompt | model | parser
+
+def create_thread_title(message, chain=chain):
+    return chain.invoke({'message': message})
+
+
+#### =====x====x====x====x====x=====x===x====x=====x====x=====x====x=====x====x=====x===
 
 # ====X===X=== EOF : Below code is for testing purpose ===X===X====
 ## !!!!! Comment all lines below when executing streamlit !!!!!

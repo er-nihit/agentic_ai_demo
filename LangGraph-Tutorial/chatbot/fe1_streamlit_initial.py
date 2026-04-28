@@ -1,8 +1,8 @@
 ### THIS IS FRONTEND FILE
-### BACKEND FILE: langgraph_backend.py
+### BACKEND FILE: be1_langgraph.py
 
 import streamlit as st
-from langgraph_backend import chatbot
+from be1_langgraph import chatbot
 from langchain_core.messages import HumanMessage
 
 # First creating a thread for config
@@ -72,24 +72,20 @@ if user_input:
     # We have imported the chaatbot object from backend python file
     # Pass the user_message as defined in the chatbot object
     ## This is using invoke function - Dumps all output at once
-    #response = chatbot.invoke({'messages':HumanMessage(content=user_input)}, config=CONFIG)
+    response = chatbot.invoke({'messages':HumanMessage(content=user_input)}, config=CONFIG)
 
-    ## STREAM IMPLEMENTATION WITH GENERATOR USING LANGGRAPH
-    # st.write_stream() function adds a typewriter effect in outputs
-    # We need to pass the generator object to get that effect
-    # Streamlit takes care of the UI 
-    # We are executing a for loop to get only the content of the stream 
-    with st.chat_message('assistant'):
-        assistant_message = st.write_stream(
-            chunk.content for chunk, metadata in chatbot.stream(
-                {'messages': [HumanMessage(content=user_input)]},
-                config=CONFIG,
-                stream_mode='messages'
-            )
-        )
 
-    # Adding the AI message output in history
+    # Response in recevied metadata and multiple additional information.
+    # Filter out only the last message content in the screen
+    assistant_message = response['messages'][-1].content
+
+    # Add the assistant output in conversation dict
+    # The conversation is added as dict as defined above
     st.session_state['conversation'].append({
         'role': 'assistant',
         'content': assistant_message
     })
+
+    # Similar to user message, we will assistant message in the chat UI
+    with st.chat_message('assistant'):
+        st.write(assistant_message)

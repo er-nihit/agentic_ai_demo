@@ -1,5 +1,5 @@
 ### THIS IS FRONTEND FILE
-### BACKEND FILE: langgraph_backend.py
+### BACKEND FILE: be1_langgraph.py
 
 
 #XXXXXXXXXXXXXXXXXXX REQUIRED IMPORTS XXXXXXXXXXXXXXXXXXXX
@@ -8,7 +8,7 @@ import streamlit as st
 from langchain_core.messages import HumanMessage
 import uuid
 # Personal Imports
-from langgraph_backend import chatbot
+from be1_langgraph import chatbot
 
 #xxxxxxxxxXXXXxxxxxxxxxx UTILITY FUNCTIONS XXXXXXXXXXXXXXXXXXXXX
 
@@ -89,7 +89,7 @@ st.sidebar.header('My conversations')
 #st.sidebar.text(st.session_state['thread_id'])
 
 # P3.3.2 Show all thread_ids in sidebar as clickable buttons
-for thread_id in st.session_state['thread_list']:
+for thread_id in st.session_state['thread_list'][::-1]:
     if st.sidebar.button(str(thread_id)):
         # P3.4 Load the session of the selected thread_id
         st.session_state['thread_id'] = thread_id   
