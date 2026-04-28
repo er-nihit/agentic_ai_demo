@@ -43,9 +43,7 @@ checkpointer = SqliteSaver(conn=conn)
 # Creating Workflow
 chatbot = graph.compile(checkpointer=checkpointer)
 
-
-for checkpoint in checkpointer.list(None):
-    print(checkpoint)
+checkpointer.list()
 
 #### =====x====x====x====x====x=====x===x====x=====x====x=====x====x=====x====x=====x===
 
