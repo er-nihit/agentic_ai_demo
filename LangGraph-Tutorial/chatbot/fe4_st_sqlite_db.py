@@ -8,7 +8,7 @@ import streamlit as st
 from langchain_core.messages import HumanMessage
 import uuid
 # Personal Imports
-from be1_langgraph import chatbot
+from be2_langgraph_db import chatbot, retrieve_all_threads
 
 #XXXXXXXXXXXXXXXXXXXX UTILITY FUNCTIONS XXXXXXXXXXXXXXXXXXXXX
 
@@ -51,8 +51,9 @@ if 'conversations' not in st.session_state:
 if 'thread_id' not in st.session_state:
     st.session_state['thread_id'] = generate_thread_id()
 
+# Here we are retrieving all the exisitng threads from db
 if 'thread_list' not in st.session_state:
-    st.session_state['thread_list'] = []
+    st.session_state['thread_list'] = retrieve_all_threads()
 
 add_thread_to_thread_list(st.session_state['thread_id'])
 
