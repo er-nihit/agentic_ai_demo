@@ -96,7 +96,7 @@ It can perform data type validations.
 Specific validations for Email, Phone numbers or URL  
 Validations based on REGEX.  
 
-### 1 `@field_validator()`
+### 1. `@field_validator()`
 It is used to add additional validations based on the application/company-specific requirements.  
 
 **Use Cases:**
@@ -112,7 +112,7 @@ It is important to provide a `@field_validator('<variable_name>')`  and `@classm
 `@field_validator('age', mode='after')` will first check the data type of age, thereafter will perform field validation.  
 `@field_validator('age', mode='before')` will first perform the field validation thereafter perform the data-type check for age.   
 
-### 2 `@model_validator()`
+### 2. `@model_validator()`
 It is used when we need to perform multiple validations which is not possible to perform using field_validator().  
 
 Here we do not need to pass any specific variable, instead we need to pass the whole model instead.  
@@ -121,7 +121,7 @@ Here we do not need to pass any specific variable, instead we need to pass the w
 `@model_validator(model='after')`
 `def check_age(cls, model):`
 
-### 3 `@computed_field()`
+### 3. `@computed_field()`
 It is used where the value of a variable is not provided by the user, instead it is calculated by the model itself.  
 
 To use this feature, it is important to include `@computed_field` and `@property` decorators.  
